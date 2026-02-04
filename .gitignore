@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Videos (large files)
+frontend/videos/*.webm
+frontend/videos/*.mp4
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.local

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroVision - Загрузка видео</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="dashboard.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span>NeuroVision</span>
+                </a>
+            </div>
+            
+            <div class="header-center">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" placeholder="Поиск операций...">
+                    </div>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="icon-btn" title="Уведомления">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <div class="user-avatar" title="Профиль">ДИ</div>
+            </div>
+        </header>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <a href="dashboard.html" class="sidebar-item">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="archive.html" class="sidebar-item">
+                    <i class="fas fa-search"></i>
+                    <span>Поиск и архив</span>
+                </a>
+                <a href="upload.html" class="sidebar-item active">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Загрузить видео</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="page-content">
+            <div class="upload-container">
+                <h1 class="mb-4">Загрузка видео операции</h1>
+                
+                <!-- Upload Zone -->
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p class="upload-text">Перетащите видео сюда или нажмите для выбора</p>
+                    <p class="upload-hint">Поддерживаемые форматы: MP4, AVI, MOV, MKV (до 10 ГБ)</p>
+                    <input type="file" id="videoInput" accept="video/*" style="display: none;">
+                </div>
+                
+                <!-- Selected File Info -->
+                <div class="panel mt-3 hidden" id="selectedFilePanel">
+                    <div class="panel-header">
+                        <span class="panel-title">Выбранный файл</span>
+                        <button class="btn btn-sm btn-secondary" id="removeFileBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="d-flex align-center gap-3">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-file-video"></i>
+                            </div>
+                            <div>
+                                <div id="fileName" style="font-weight: 500;"></div>
+                                <div id="fileSize" class="text-muted"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upload Form -->
+                <form class="upload-form" id="uploadForm">
+                    <h3 class="mb-3">Информация об операции</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="title">Название операции *</label>
+                            <input type="text" id="title" placeholder="Например: Удаление менингиомы левой лобной доли" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="surgeon">Хирург *</label>
+                            <select id="surgeon" required>
+                                <option value="">Выберите хирурга</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="operationType">Тип операции *</label>
+                            <select id="operationType" required>
+                                <option value="">Выберите тип</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Дата операции *</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientId">ID пациента (анонимный)</label>
+                            <input type="text" id="patientId" placeholder="P-2025-XXXX">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="description">Описание / Заметки</label>
+                            <textarea id="description" placeholder="Дополнительная информация об операции..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Опции обработки AI</label>
+                            <div class="d-flex gap-3 mt-2">
+                                <label class="d-flex align-center gap-2" style="cursor: pointer;">
+                                    <input type="checkbox" id="detectPhases" checked>
+                                    <span>Определение этапов</span>
+                                </label>
+                                <label class="d-flex align-center gap-2" style="cursor: pointer;">
+                                    <input type="checkbox" id="detectInstruments" checked>
+                                    <span>Распознавание инструментов</span>
+                                </label>
+                                <label class="d-flex align-center gap-2" style="cursor: pointer;">
+                                    <input type="checkbox" id="detectAnatomy" checked>
+                                    <span>Анатомические структуры</span>
+                                </label>
+                                <label class="d-flex align-center gap-2" style="cursor: pointer;">
+                                    <input type="checkbox" id="detectEvents" checked>
+                                    <span>События и осложнения</span>
+                                </label>
+                                <label class="d-flex align-center gap-2" style="cursor: pointer;">
+                                    <input type="checkbox" id="generateSubtitles" checked>
+                                    <span>Субтитры (RU)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-between align-center mt-4">
+                        <a href="dashboard.html" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Отмена
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                            <i class="fas fa-upload"></i>
+                            Загрузить и обработать
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Upload Progress -->
+                <div class="panel mt-4 hidden" id="progressPanel">
+                    <div class="panel-header">
+                        <span class="panel-title">Загрузка и обработка</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="mb-3">
+                            <div class="d-flex justify-between mb-1">
+                                <span id="progressStatus">Загрузка видео...</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="progress-bar" style="height: 8px;">
+                                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2" id="processingSteps">
+                            <span class="tag">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Загрузка
+                            </span>
+                            <span class="tag">
+                                <i class="fas fa-circle"></i>
+                                Извлечение кадров
+                            </span>
+                            <span class="tag">
+                                <i class="fas fa-circle"></i>
+                                AI анализ
+                            </span>
+                            <span class="tag">
+                                <i class="fas fa-circle"></i>
+                                Индексация
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText"></span>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,833 @@
+[
+    {
+        "id": "op_001",
+        "title": "Микрососудистая декомпрессия при гемифациальном спазме",
+        "surgeon": "Д-р Иванов А.С.",
+        "date": "2026-01-15",
+        "duration": 175,
+        "type": "Микрососудистая декомпрессия",
+        "description": "Эндоскоп-ассистированная микрососудистая декомпрессия при гемифациальном спазме с установкой тефлоновой прокладки. Операция выполнена с использованием нейронавигации.",
+        "status": "completed",
+        "videoUrl": "videos/microvascular_decompression.webm",
+        "thumbnailUrl": "images/thumbnails/op_001_thumb.svg",
+        "tags": [
+            "MVD",
+            "гемифациальный спазм",
+            "эндоскопия",
+            "тефлон"
+        ],
+        "segments": [
+            {
+                "type": "phase",
+                "name": "Позиционирование пациента",
+                "startTime": 0,
+                "endTime": 25,
+                "confidence": 0.94,
+                "tags": [
+                    "подготовка",
+                    "позиционирование"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Ретромастоидальный доступ",
+                "startTime": 25,
+                "endTime": 55,
+                "confidence": 0.91,
+                "tags": [
+                    "краниотомия",
+                    "доступ"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Вскрытие твердой мозговой оболочки",
+                "startTime": 55,
+                "endTime": 80,
+                "confidence": 0.89,
+                "tags": [
+                    "дура",
+                    "вскрытие"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Идентификация нервно-сосудистого конфликта",
+                "startTime": 80,
+                "endTime": 115,
+                "confidence": 0.92,
+                "tags": [
+                    "идентификация",
+                    "лицевой нерв",
+                    "AICA"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Установка тефлоновой прокладки",
+                "startTime": 115,
+                "endTime": 145,
+                "confidence": 0.95,
+                "tags": [
+                    "декомпрессия",
+                    "тефлон"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Закрытие раны",
+                "startTime": 145,
+                "endTime": 175,
+                "confidence": 0.93,
+                "tags": [
+                    "гемостаз",
+                    "ушивание"
+                ]
+            },
+            {
+                "type": "event",
+                "name": "Визуализация сосудистой петли",
+                "startTime": 92,
+                "severity": "info"
+            },
+            {
+                "type": "event",
+                "name": "Успешная декомпрессия",
+                "startTime": 140,
+                "severity": "info"
+            }
+        ],
+        "detections": [
+            {
+                "type": "instrument",
+                "name": "Биполярный пинцет",
+                "timestamp": 30,
+                "confidence": 0.94,
+                "boundingBox": {
+                    "x": 0.35,
+                    "y": 0.25,
+                    "width": 0.18,
+                    "height": 0.15
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микроножницы",
+                "timestamp": 58,
+                "confidence": 0.91,
+                "boundingBox": {
+                    "x": 0.42,
+                    "y": 0.3,
+                    "width": 0.16,
+                    "height": 0.12
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микрокрючок",
+                "timestamp": 85,
+                "confidence": 0.89,
+                "boundingBox": {
+                    "x": 0.38,
+                    "y": 0.28,
+                    "width": 0.14,
+                    "height": 0.1
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Аспиратор",
+                "timestamp": 95,
+                "confidence": 0.92,
+                "boundingBox": {
+                    "x": 0.55,
+                    "y": 0.35,
+                    "width": 0.2,
+                    "height": 0.14
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Эндоскоп 30°",
+                "timestamp": 100,
+                "confidence": 0.96,
+                "boundingBox": {
+                    "x": 0.3,
+                    "y": 0.15,
+                    "width": 0.25,
+                    "height": 0.2
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микропинцет",
+                "timestamp": 120,
+                "confidence": 0.88,
+                "boundingBox": {
+                    "x": 0.45,
+                    "y": 0.32,
+                    "width": 0.15,
+                    "height": 0.11
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Лицевой нерв (VII)",
+                "timestamp": 88,
+                "confidence": 0.93,
+                "boundingBox": {
+                    "x": 0.4,
+                    "y": 0.45,
+                    "width": 0.12,
+                    "height": 0.08
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "AICA",
+                "timestamp": 90,
+                "confidence": 0.91,
+                "boundingBox": {
+                    "x": 0.5,
+                    "y": 0.48,
+                    "width": 0.14,
+                    "height": 0.09
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Твердая мозговая оболочка",
+                "timestamp": 56,
+                "confidence": 0.95,
+                "boundingBox": {
+                    "x": 0.25,
+                    "y": 0.2,
+                    "width": 0.5,
+                    "height": 0.25
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Мозжечок",
+                "timestamp": 82,
+                "confidence": 0.9,
+                "boundingBox": {
+                    "x": 0.35,
+                    "y": 0.5,
+                    "width": 0.3,
+                    "height": 0.25
+                }
+            }
+        ],
+        "subtitles": [
+            {
+                "startTime": 0,
+                "endTime": 20,
+                "text": "Пациент позиционирован в положении на боку. Голова фиксирована в скобе Мейфилда."
+            },
+            {
+                "startTime": 25,
+                "endTime": 50,
+                "text": "Выполняется ретромастоидальный доступ. Краниотомия размером 3x3 см."
+            },
+            {
+                "startTime": 55,
+                "endTime": 75,
+                "text": "Вскрытие твердой мозговой оболочки дугообразным разрезом."
+            },
+            {
+                "startTime": 80,
+                "endTime": 110,
+                "text": "Идентификация нервно-сосудистого конфликта между AICA и корешком лицевого нерва."
+            },
+            {
+                "startTime": 115,
+                "endTime": 140,
+                "text": "Установка тефлоновой прокладки между сосудом и нервом для декомпрессии."
+            },
+            {
+                "startTime": 145,
+                "endTime": 175,
+                "text": "Гемостаз. Послойное ушивание операционной раны."
+            }
+        ]
+    },
+    {
+        "id": "op_002",
+        "title": "Микрохирургическая резекция кисты шишковидной железы",
+        "surgeon": "Д-р Петрова Е.В.",
+        "date": "2026-01-22",
+        "duration": 322,
+        "type": "Резекция кисты",
+        "description": "Микрохирургическая резекция кисты шишковидной железы парамедианным супратенториальным инфрацеребеллярным доступом.",
+        "status": "completed",
+        "videoUrl": "videos/pineal_cyst_hd.webm",
+        "thumbnailUrl": "images/thumbnails/op_002_thumb.svg",
+        "tags": [
+            "пинеальная киста",
+            "шишковидная железа",
+            "микрохирургия"
+        ],
+        "segments": [
+            {
+                "type": "phase",
+                "name": "Укладка и подготовка",
+                "startTime": 0,
+                "endTime": 45,
+                "confidence": 0.92,
+                "tags": [
+                    "позиционирование",
+                    "подготовка"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Парамедианная краниотомия",
+                "startTime": 45,
+                "endTime": 90,
+                "confidence": 0.9,
+                "tags": [
+                    "краниотомия",
+                    "доступ"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Доступ к пинеальной области",
+                "startTime": 90,
+                "endTime": 150,
+                "confidence": 0.88,
+                "tags": [
+                    "супратенториальный",
+                    "инфрацеребеллярный"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Идентификация кисты",
+                "startTime": 150,
+                "endTime": 200,
+                "confidence": 0.93,
+                "tags": [
+                    "пинеальная киста",
+                    "идентификация"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Резекция стенки кисты",
+                "startTime": 200,
+                "endTime": 280,
+                "confidence": 0.91,
+                "tags": [
+                    "резекция",
+                    "микрохирургия"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Гемостаз и закрытие",
+                "startTime": 280,
+                "endTime": 322,
+                "confidence": 0.94,
+                "tags": [
+                    "гемостаз",
+                    "закрытие"
+                ]
+            },
+            {
+                "type": "event",
+                "name": "Визуализация глубоких вен мозга",
+                "startTime": 160,
+                "severity": "warning"
+            },
+            {
+                "type": "event",
+                "name": "Полная резекция кисты",
+                "startTime": 275,
+                "severity": "info"
+            }
+        ],
+        "detections": [
+            {
+                "type": "instrument",
+                "name": "Микроскоп",
+                "timestamp": 50,
+                "confidence": 0.97,
+                "boundingBox": {
+                    "x": 0.2,
+                    "y": 0.1,
+                    "width": 0.6,
+                    "height": 0.35
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Биполярная коагуляция",
+                "timestamp": 100,
+                "confidence": 0.93,
+                "boundingBox": {
+                    "x": 0.4,
+                    "y": 0.3,
+                    "width": 0.18,
+                    "height": 0.14
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микродиссектор",
+                "timestamp": 165,
+                "confidence": 0.89,
+                "boundingBox": {
+                    "x": 0.45,
+                    "y": 0.35,
+                    "width": 0.16,
+                    "height": 0.12
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Аспиратор",
+                "timestamp": 210,
+                "confidence": 0.92,
+                "boundingBox": {
+                    "x": 0.52,
+                    "y": 0.32,
+                    "width": 0.2,
+                    "height": 0.15
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микроножницы",
+                "timestamp": 240,
+                "confidence": 0.9,
+                "boundingBox": {
+                    "x": 0.38,
+                    "y": 0.38,
+                    "width": 0.17,
+                    "height": 0.13
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Шишковидная железа",
+                "timestamp": 155,
+                "confidence": 0.94,
+                "boundingBox": {
+                    "x": 0.42,
+                    "y": 0.45,
+                    "width": 0.16,
+                    "height": 0.12
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Вена Галена",
+                "timestamp": 162,
+                "confidence": 0.91,
+                "boundingBox": {
+                    "x": 0.48,
+                    "y": 0.5,
+                    "width": 0.14,
+                    "height": 0.1
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Четверохолмие",
+                "timestamp": 175,
+                "confidence": 0.88,
+                "boundingBox": {
+                    "x": 0.35,
+                    "y": 0.48,
+                    "width": 0.2,
+                    "height": 0.15
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Мозжечковый намёт",
+                "timestamp": 130,
+                "confidence": 0.92,
+                "boundingBox": {
+                    "x": 0.25,
+                    "y": 0.4,
+                    "width": 0.5,
+                    "height": 0.2
+                }
+            }
+        ],
+        "subtitles": [
+            {
+                "startTime": 0,
+                "endTime": 40,
+                "text": "Пациент в положении сидя с наклоном головы вперед. Операционное поле обработано."
+            },
+            {
+                "startTime": 45,
+                "endTime": 85,
+                "text": "Выполняется парамедианная затылочная краниотомия справа."
+            },
+            {
+                "startTime": 90,
+                "endTime": 145,
+                "text": "Супратенториальный инфрацеребеллярный доступ к пинеальной области."
+            },
+            {
+                "startTime": 150,
+                "endTime": 195,
+                "text": "Идентификация кисты шишковидной железы. Оценка соотношения с глубокими венами."
+            },
+            {
+                "startTime": 200,
+                "endTime": 275,
+                "text": "Аккуратная резекция стенки кисты с сохранением венозных структур."
+            },
+            {
+                "startTime": 280,
+                "endTime": 322,
+                "text": "Контрольный осмотр. Гемостаз достигнут. Закрытие раны."
+            }
+        ]
+    },
+    {
+        "id": "op_003",
+        "title": "Эндоскопическая микрохирургия - гемифациальный спазм (HD)",
+        "surgeon": "Д-р Сидоров М.А.",
+        "date": "2026-02-01",
+        "duration": 174,
+        "type": "Эндоскопическая микрохирургия",
+        "description": "HD версия операции микрососудистой декомпрессии. Это видео ожидает AI-обработки для демонстрации функционала платформы в реальном времени.",
+        "status": "completed",
+        "videoUrl": "videos/hemifacial_spasm_surgery_hd.webm",
+        "thumbnailUrl": "images/thumbnails/op_003_thumb.svg",
+        "tags": [
+            "HD",
+            "эндоскопия",
+            "демо",
+            "необработанное"
+        ],
+        "segments": [
+            {
+                "type": "phase",
+                "name": "Подготовка и позиционирование",
+                "startTime": 0,
+                "endTime": 29,
+                "confidence": 0.8514845597721009,
+                "tags": [
+                    "AI-detected"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Краниотомия / Доступ",
+                "startTime": 29,
+                "endTime": 58,
+                "confidence": 0.9579689719649204,
+                "tags": [
+                    "AI-detected"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Идентификация структур",
+                "startTime": 58,
+                "endTime": 87,
+                "confidence": 0.888098560730888,
+                "tags": [
+                    "AI-detected"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Основной этап операции",
+                "startTime": 87,
+                "endTime": 116,
+                "confidence": 0.8627781060824512,
+                "tags": [
+                    "AI-detected"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Гемостаз и контроль",
+                "startTime": 116,
+                "endTime": 145,
+                "confidence": 0.8672578599892546,
+                "tags": [
+                    "AI-detected"
+                ]
+            },
+            {
+                "type": "phase",
+                "name": "Закрытие",
+                "startTime": 145,
+                "endTime": 174,
+                "confidence": 0.925861841597895,
+                "tags": [
+                    "AI-detected"
+                ]
+            }
+        ],
+        "detections": [
+            {
+                "type": "instrument",
+                "name": "Аспиратор",
+                "timestamp": 26,
+                "confidence": 0.9696293251989365,
+                "boundingBox": {
+                    "x": 0.3948959846109408,
+                    "y": 0.49784964867625237,
+                    "width": 0.12779154703006687,
+                    "height": 0.21607256222036525
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микрокрючок",
+                "timestamp": 44,
+                "confidence": 0.8080711240262424,
+                "boundingBox": {
+                    "x": 0.6217320419595739,
+                    "y": 0.5936353346202683,
+                    "width": 0.1692274172416997,
+                    "height": 0.2468121336691066
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Нервная ткань",
+                "timestamp": 45,
+                "confidence": 0.85533515208053,
+                "boundingBox": {
+                    "x": 0.39176671314481204,
+                    "y": 0.578848534936181,
+                    "width": 0.24422106823538903,
+                    "height": 0.20972015789174087
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Нервная ткань",
+                "timestamp": 57,
+                "confidence": 0.9491578338178841,
+                "boundingBox": {
+                    "x": 0.3227624565205366,
+                    "y": 0.24140668265377263,
+                    "width": 0.20825969966108548,
+                    "height": 0.198003358739536
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микрокрючок",
+                "timestamp": 66,
+                "confidence": 0.9792851882099914,
+                "boundingBox": {
+                    "x": 0.6633968163434071,
+                    "y": 0.2870059938801329,
+                    "width": 0.25084456193694593,
+                    "height": 0.2854810569161116
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Твердая мозговая оболочка",
+                "timestamp": 72,
+                "confidence": 0.9795889285446127,
+                "boundingBox": {
+                    "x": 0.5688186176011009,
+                    "y": 0.2683491335842657,
+                    "width": 0.28693548148295833,
+                    "height": 0.18935660970863913
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Твердая мозговая оболочка",
+                "timestamp": 73,
+                "confidence": 0.7983680640941355,
+                "boundingBox": {
+                    "x": 0.38170076531865005,
+                    "y": 0.6060545642758797,
+                    "width": 0.22794249170692454,
+                    "height": 0.1780307076695709
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микрокрючок",
+                "timestamp": 86,
+                "confidence": 0.9783188206345441,
+                "boundingBox": {
+                    "x": 0.5310345101656909,
+                    "y": 0.37017191997429844,
+                    "width": 0.10770239359336214,
+                    "height": 0.18904597865356818
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Аспиратор",
+                "timestamp": 97,
+                "confidence": 0.8448706737137816,
+                "boundingBox": {
+                    "x": 0.6475487243008633,
+                    "y": 0.20230035680426062,
+                    "width": 0.12601797314962596,
+                    "height": 0.1521202631639389
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Нервная ткань",
+                "timestamp": 101,
+                "confidence": 0.8712631777575771,
+                "boundingBox": {
+                    "x": 0.5588537103888428,
+                    "y": 0.42308243232142684,
+                    "width": 0.262806286893556,
+                    "height": 0.15510301880619645
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микрокрючок",
+                "timestamp": 103,
+                "confidence": 0.9449952203435037,
+                "boundingBox": {
+                    "x": 0.3946493267694988,
+                    "y": 0.27259650116614353,
+                    "width": 0.27611198029479467,
+                    "height": 0.25823076686398105
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Аспиратор",
+                "timestamp": 119,
+                "confidence": 0.8214920254123779,
+                "boundingBox": {
+                    "x": 0.25066458968141136,
+                    "y": 0.41559182703809594,
+                    "width": 0.29643025971080805,
+                    "height": 0.2232212514093852
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Микрокрючок",
+                "timestamp": 122,
+                "confidence": 0.9774370628649205,
+                "boundingBox": {
+                    "x": 0.2569766773776289,
+                    "y": 0.38020399434454366,
+                    "width": 0.11693175145032537,
+                    "height": 0.2422326047146206
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Сосуды",
+                "timestamp": 124,
+                "confidence": 0.8151911060300319,
+                "boundingBox": {
+                    "x": 0.35399937316254726,
+                    "y": 0.19271481438008478,
+                    "width": 0.1277921058483572,
+                    "height": 0.144353371565263
+                }
+            },
+            {
+                "type": "instrument",
+                "name": "Ретрактор",
+                "timestamp": 124,
+                "confidence": 0.8369453160353136,
+                "boundingBox": {
+                    "x": 0.15911731384041206,
+                    "y": 0.17925157966022576,
+                    "width": 0.21114267619938437,
+                    "height": 0.13104974107607087
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Твердая мозговая оболочка",
+                "timestamp": 141,
+                "confidence": 0.8309955183105229,
+                "boundingBox": {
+                    "x": 0.3074072028755381,
+                    "y": 0.10265081354311985,
+                    "width": 0.17075879609255512,
+                    "height": 0.26579002286509135
+                }
+            },
+            {
+                "type": "anatomy",
+                "name": "Нервная ткань",
+                "timestamp": 170,
+                "confidence": 0.8905274732616576,
+                "boundingBox": {
+                    "x": 0.6149723794921085,
+                    "y": 0.34113339132162074,
+                    "width": 0.11724049256136887,
+                    "height": 0.13455687433336116
+                }
+            }
+        ],
+        "subtitles": [
+            {
+                "startTime": 0,
+                "endTime": 16,
+                "text": "Хирург выполняет разрез кожи в области операционного доступа"
+            },
+            {
+                "startTime": 17,
+                "endTime": 33,
+                "text": "Проводится диссекция мягких тканей с использованием биполярной коагуляции"
+            },
+            {
+                "startTime": 35,
+                "endTime": 50,
+                "text": "Краниотомия: формирование костного окна для доступа к операционному полю"
+            },
+            {
+                "startTime": 52,
+                "endTime": 68,
+                "text": "Вскрытие твердой мозговой оболочки с сохранением арахноидальной оболочки"
+            },
+            {
+                "startTime": 70,
+                "endTime": 85,
+                "text": "Идентификация ключевых анатомических ориентиров под микроскопом"
+            },
+            {
+                "startTime": 87,
+                "endTime": 103,
+                "text": "Микрохирургическая диссекция в области поражения"
+            },
+            {
+                "startTime": 104,
+                "endTime": 120,
+                "text": "Применение ретрактора для улучшения визуализации"
+            },
+            {
+                "startTime": 122,
+                "endTime": 137,
+                "text": "Тщательный гемостаз операционного поля"
+            },
+            {
+                "startTime": 139,
+                "endTime": 155,
+                "text": "Контрольный осмотр зоны вмешательства"
+            },
+            {
+                "startTime": 157,
+                "endTime": 172,
+                "text": "Послойное закрытие операционной раны"
+            }
+        ],
+        "processedAt": "2026-02-04T17:36:11.317Z"
+    }
+]

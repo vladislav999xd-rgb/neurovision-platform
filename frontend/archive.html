@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroVision - Архив и поиск</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="dashboard.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span>NeuroVision</span>
+                </a>
+            </div>
+            
+            <div class="header-center">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="globalSearch" placeholder="Поиск по всему архиву...">
+                    </div>
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="icon-btn" title="Загрузить видео" onclick="location.href='upload.html'">
+                    <i class="fas fa-video"></i>
+                </button>
+                <button class="icon-btn" title="Уведомления">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <div class="user-avatar" title="Профиль">ДИ</div>
+            </div>
+        </header>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <a href="dashboard.html" class="sidebar-item">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="archive.html" class="sidebar-item active">
+                    <i class="fas fa-search"></i>
+                    <span>Поиск и архив</span>
+                </a>
+                <a href="upload.html" class="sidebar-item">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Загрузить видео</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Быстрые фильтры</div>
+                <a href="#" class="sidebar-item" data-quick="bleeding">
+                    <i class="fas fa-tint" style="color: #ea4335;"></i>
+                    <span>Кровотечения</span>
+                </a>
+                <a href="#" class="sidebar-item" data-quick="clipping">
+                    <i class="fas fa-paperclip" style="color: #4285f4;"></i>
+                    <span>Клипирование</span>
+                </a>
+                <a href="#" class="sidebar-item" data-quick="resection">
+                    <i class="fas fa-cut" style="color: #34a853;"></i>
+                    <span>Резекция опухоли</span>
+                </a>
+                <a href="#" class="sidebar-item" data-quick="complications">
+                    <i class="fas fa-exclamation-triangle" style="color: #fbbc04;"></i>
+                    <span>Осложнения</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="page-content">
+            <h1 class="mb-4">Поиск и архив</h1>
+            
+            <!-- Advanced Filters -->
+            <div class="filters-panel">
+                <div class="filters-header">
+                    <span class="filters-title">
+                        <i class="fas fa-filter"></i>
+                        Расширенные фильтры
+                    </span>
+                    <button class="btn btn-sm btn-secondary" id="resetFiltersBtn">
+                        <i class="fas fa-undo"></i>
+                        Сбросить
+                    </button>
+                </div>
+                
+                <div class="filters-grid">
+                    <!-- Этапы операции -->
+                    <div class="filter-group">
+                        <label class="filter-label">Этапы операции</label>
+                        <select id="filterPhases" class="filter-select" multiple>
+                            <!-- Заполняется из API -->
+                        </select>
+                    </div>
+                    
+                    <!-- Инструменты -->
+                    <div class="filter-group">
+                        <label class="filter-label">Инструменты</label>
+                        <select id="filterInstruments" class="filter-select" multiple>
+                            <!-- Заполняется из API -->
+                        </select>
+                    </div>
+                    
+                    <!-- Анатомические структуры -->
+                    <div class="filter-group">
+                        <label class="filter-label">Анатомические структуры</label>
+                        <select id="filterAnatomy" class="filter-select" multiple>
+                            <!-- Заполняется из API -->
+                        </select>
+                    </div>
+                    
+                    <!-- События -->
+                    <div class="filter-group">
+                        <label class="filter-label">События / Осложнения</label>
+                        <select id="filterEvents" class="filter-select" multiple>
+                            <!-- Заполняется из API -->
+                        </select>
+                    </div>
+                    
+                    <!-- Хирурги -->
+                    <div class="filter-group">
+                        <label class="filter-label">Хирург</label>
+                        <select id="filterSurgeon" class="filter-select">
+                            <option value="">Все хирурги</option>
+                            <!-- Заполняется из API -->
+                        </select>
+                    </div>
+                    
+                    <!-- Тип операции -->
+                    <div class="filter-group">
+                        <label class="filter-label">Тип операции</label>
+                        <select id="filterType" class="filter-select">
+                            <option value="">Все типы</option>
+                            <!-- Заполняется из API -->
+                        </select>
+                    </div>
+                    
+                    <!-- Дата от -->
+                    <div class="filter-group">
+                        <label class="filter-label">Дата от</label>
+                        <input type="date" id="filterDateFrom" class="filter-select">
+                    </div>
+                    
+                    <!-- Дата до -->
+                    <div class="filter-group">
+                        <label class="filter-label">Дата до</label>
+                        <input type="date" id="filterDateTo" class="filter-select">
+                    </div>
+                    
+                    <!-- Уверенность модели -->
+                    <div class="filter-group">
+                        <label class="filter-label">Мин. уверенность AI (%)</label>
+                        <input type="range" id="filterConfidence" min="0" max="100" value="50" class="filter-select">
+                        <span id="confidenceValue">50%</span>
+                    </div>
+                </div>
+                
+                <!-- Active Filters -->
+                <div class="active-filters" id="activeFilters" style="display: none;">
+                    <span class="filter-label">Активные фильтры:</span>
+                    <div id="activeFilterChips"></div>
+                </div>
+                
+                <!-- Search Button -->
+                <div class="d-flex justify-between align-center mt-3">
+                    <span id="resultsCount" class="text-muted">-</span>
+                    <button class="btn btn-primary" id="applyFiltersBtn">
+                        <i class="fas fa-search"></i>
+                        Применить фильтры
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="search-results" id="searchResults">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="empty-title">Ничего не найдено</h3>
+                <p class="empty-text">Попробуйте изменить параметры поиска или сбросить фильтры</p>
+                <button class="btn btn-secondary" id="clearSearchBtn">
+                    <i class="fas fa-undo"></i>
+                    Сбросить фильтры
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/archive.js"></script>
+</body>
+</html>

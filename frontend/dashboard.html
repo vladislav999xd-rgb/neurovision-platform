@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroVision - Дашборд</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="dashboard.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span>NeuroVision</span>
+                </a>
+            </div>
+            
+            <div class="header-center">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="globalSearch" placeholder="Поиск операций, инструментов, анатомии...">
+                    </div>
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <button class="icon-btn" title="Загрузить видео" onclick="location.href='upload.html'">
+                    <i class="fas fa-video"></i>
+                </button>
+                <button class="icon-btn" title="Уведомления">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <div class="user-avatar" id="userAvatar" title="Профиль">
+                    ДИ
+                </div>
+            </div>
+        </header>
+        
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <a href="dashboard.html" class="sidebar-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="archive.html" class="sidebar-item">
+                    <i class="fas fa-search"></i>
+                    <span>Поиск и архив</span>
+                </a>
+                <a href="upload.html" class="sidebar-item">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Загрузить видео</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Библиотека</div>
+                <a href="#" class="sidebar-item" data-filter="recent">
+                    <i class="fas fa-history"></i>
+                    <span>Недавние</span>
+                </a>
+                <a href="#" class="sidebar-item" data-filter="favorites">
+                    <i class="fas fa-star"></i>
+                    <span>Избранное</span>
+                </a>
+                <a href="#" class="sidebar-item" data-filter="processing">
+                    <i class="fas fa-clock"></i>
+                    <span>В обработке</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Типы операций</div>
+                <a href="#" class="sidebar-item" data-type="Удаление менингиомы">
+                    <i class="fas fa-brain"></i>
+                    <span>Менингиомы</span>
+                </a>
+                <a href="#" class="sidebar-item" data-type="Клипирование аневризмы">
+                    <i class="fas fa-heart-pulse"></i>
+                    <span>Аневризмы</span>
+                </a>
+                <a href="#" class="sidebar-item" data-type="Резекция глиомы">
+                    <i class="fas fa-disease"></i>
+                    <span>Глиомы</span>
+                </a>
+                <a href="#" class="sidebar-item" data-type="Удаление аденомы гипофиза">
+                    <i class="fas fa-lungs"></i>
+                    <span>Аденомы гипофиза</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Хирурги</div>
+                <div id="surgeonsList"></div>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="page-content">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="stat-value" id="statOperations">0</div>
+                    <div class="stat-label">Операций в архиве</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-value" id="statCompleted">0</div>
+                    <div class="stat-label">Обработано</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <div class="stat-value" id="statSegments">0</div>
+                    <div class="stat-label">Сегментов</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="statDuration">0ч</div>
+                    <div class="stat-label">Общая длительность</div>
+                </div>
+            </div>
+            
+            <!-- Section Header -->
+            <div class="d-flex align-center justify-between mb-3">
+                <h2 id="sectionTitle">Все операции</h2>
+                <div class="d-flex gap-2">
+                    <select id="sortSelect" class="filter-select" style="width: auto;">
+                        <option value="date-desc">Сначала новые</option>
+                        <option value="date-asc">Сначала старые</option>
+                        <option value="duration-desc">По длительности ↓</option>
+                        <option value="duration-asc">По длительности ↑</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Video Grid -->
+            <div class="video-grid" id="videoGrid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fas fa-video-slash"></i>
+                </div>
+                <h3 class="empty-title">Операций не найдено</h3>
+                <p class="empty-text">Попробуйте изменить фильтры или загрузите новое видео</p>
+                <a href="upload.html" class="btn btn-primary">
+                    <i class="fas fa-upload"></i>
+                    Загрузить видео
+                </a>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

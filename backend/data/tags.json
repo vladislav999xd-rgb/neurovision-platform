@@ -1,0 +1,455 @@
+{
+  "instruments": [
+    {
+      "id": "inst_001",
+      "name": "Микроножницы",
+      "nameEn": "Microscissors",
+      "category": "cutting",
+      "description": "Микрохирургические ножницы для точного рассечения тканей"
+    },
+    {
+      "id": "inst_002",
+      "name": "Биполярный пинцет",
+      "nameEn": "Bipolar Forceps",
+      "category": "coagulation",
+      "description": "Для коагуляции и гемостаза"
+    },
+    {
+      "id": "inst_003",
+      "name": "Аспиратор",
+      "nameEn": "Suction/Aspirator",
+      "category": "aspiration",
+      "description": "Для удаления крови и жидкости из операционного поля"
+    },
+    {
+      "id": "inst_004",
+      "name": "Ультразвуковой аспиратор (CUSA)",
+      "nameEn": "Ultrasonic Aspirator (CUSA)",
+      "category": "resection",
+      "description": "Для фрагментации и аспирации опухолевой ткани"
+    },
+    {
+      "id": "inst_005",
+      "name": "Микропинцет",
+      "nameEn": "Microforceps",
+      "category": "manipulation",
+      "description": "Для захвата и манипуляции тканями"
+    },
+    {
+      "id": "inst_006",
+      "name": "Диссектор",
+      "nameEn": "Dissector",
+      "category": "dissection",
+      "description": "Для тупой диссекции тканей"
+    },
+    {
+      "id": "inst_007",
+      "name": "Ретрактор мозга",
+      "nameEn": "Brain Retractor",
+      "category": "retraction",
+      "description": "Для отведения мозговой ткани"
+    },
+    {
+      "id": "inst_008",
+      "name": "Клипаппликатор",
+      "nameEn": "Clip Applicator",
+      "category": "clipping",
+      "description": "Для наложения аневризмальных клипс"
+    },
+    {
+      "id": "inst_009",
+      "name": "Микробор (дрель)",
+      "nameEn": "Microdrill",
+      "category": "drilling",
+      "description": "Для обработки кости"
+    },
+    {
+      "id": "inst_010",
+      "name": "Эндоскоп",
+      "nameEn": "Endoscope",
+      "category": "visualization",
+      "description": "Для эндоскопической визуализации"
+    },
+    {
+      "id": "inst_011",
+      "name": "Нейронавигатор",
+      "nameEn": "Neuronavigation Probe",
+      "category": "navigation",
+      "description": "Указатель системы нейронавигации"
+    },
+    {
+      "id": "inst_012",
+      "name": "Коагулятор монополярный",
+      "nameEn": "Monopolar Coagulator",
+      "category": "coagulation",
+      "description": "Для монополярной коагуляции"
+    },
+    {
+      "id": "inst_013",
+      "name": "Кюретка",
+      "nameEn": "Curette",
+      "category": "scraping",
+      "description": "Для выскабливания тканей"
+    },
+    {
+      "id": "inst_014",
+      "name": "Гемостатическая губка",
+      "nameEn": "Hemostatic Sponge",
+      "category": "hemostasis",
+      "description": "Для местного гемостаза"
+    },
+    {
+      "id": "inst_015",
+      "name": "Временный клипс",
+      "nameEn": "Temporary Clip",
+      "category": "clipping",
+      "description": "Для временного пережатия сосудов"
+    }
+  ],
+  "anatomy": [
+    {
+      "id": "anat_001",
+      "name": "Твёрдая мозговая оболочка",
+      "nameEn": "Dura Mater",
+      "category": "meninges",
+      "color": "#E8E8E8"
+    },
+    {
+      "id": "anat_002",
+      "name": "Арахноидальная оболочка",
+      "nameEn": "Arachnoid Mater",
+      "category": "meninges",
+      "color": "#F5F5DC"
+    },
+    {
+      "id": "anat_003",
+      "name": "Кора головного мозга",
+      "nameEn": "Cerebral Cortex",
+      "category": "brain",
+      "color": "#FFB6C1"
+    },
+    {
+      "id": "anat_004",
+      "name": "Белое вещество",
+      "nameEn": "White Matter",
+      "category": "brain",
+      "color": "#FFFAF0"
+    },
+    {
+      "id": "anat_005",
+      "name": "Опухоль",
+      "nameEn": "Tumor",
+      "category": "pathology",
+      "color": "#8B0000"
+    },
+    {
+      "id": "anat_006",
+      "name": "Артерия",
+      "nameEn": "Artery",
+      "category": "vascular",
+      "color": "#DC143C"
+    },
+    {
+      "id": "anat_007",
+      "name": "Вена",
+      "nameEn": "Vein",
+      "category": "vascular",
+      "color": "#4169E1"
+    },
+    {
+      "id": "anat_008",
+      "name": "Черепной нерв",
+      "nameEn": "Cranial Nerve",
+      "category": "neural",
+      "color": "#FFD700"
+    },
+    {
+      "id": "anat_009",
+      "name": "Сильвиева борозда",
+      "nameEn": "Sylvian Fissure",
+      "category": "sulci",
+      "color": "#90EE90"
+    },
+    {
+      "id": "anat_010",
+      "name": "Желудочек",
+      "nameEn": "Ventricle",
+      "category": "csf",
+      "color": "#87CEEB"
+    },
+    {
+      "id": "anat_011",
+      "name": "Гипофиз",
+      "nameEn": "Pituitary Gland",
+      "category": "glands",
+      "color": "#DDA0DD"
+    },
+    {
+      "id": "anat_012",
+      "name": "Мозжечок",
+      "nameEn": "Cerebellum",
+      "category": "brain",
+      "color": "#F0E68C"
+    },
+    {
+      "id": "anat_013",
+      "name": "Ствол мозга",
+      "nameEn": "Brainstem",
+      "category": "brain",
+      "color": "#DEB887"
+    },
+    {
+      "id": "anat_014",
+      "name": "Аневризма",
+      "nameEn": "Aneurysm",
+      "category": "pathology",
+      "color": "#FF4500"
+    },
+    {
+      "id": "anat_015",
+      "name": "Кавернозный синус",
+      "nameEn": "Cavernous Sinus",
+      "category": "vascular",
+      "color": "#6A5ACD"
+    },
+    {
+      "id": "anat_016",
+      "name": "Зрительный нерв",
+      "nameEn": "Optic Nerve",
+      "category": "neural",
+      "color": "#FFD700"
+    },
+    {
+      "id": "anat_017",
+      "name": "Внутренняя сонная артерия",
+      "nameEn": "Internal Carotid Artery",
+      "category": "vascular",
+      "color": "#FF6347"
+    },
+    {
+      "id": "anat_018",
+      "name": "Средняя мозговая артерия",
+      "nameEn": "Middle Cerebral Artery",
+      "category": "vascular",
+      "color": "#FF6347"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_001",
+      "name": "Кровотечение",
+      "nameEn": "Bleeding",
+      "severity": "high",
+      "description": "Активное кровотечение в операционном поле",
+      "color": "#FF0000"
+    },
+    {
+      "id": "evt_002",
+      "name": "Интенсивная аспирация",
+      "nameEn": "Intensive Aspiration",
+      "severity": "medium",
+      "description": "Повышенное использование аспирации",
+      "color": "#FFA500"
+    },
+    {
+      "id": "evt_003",
+      "name": "Коагуляция",
+      "nameEn": "Coagulation Event",
+      "severity": "low",
+      "description": "Применение коагуляции для гемостаза",
+      "color": "#FFD700"
+    },
+    {
+      "id": "evt_004",
+      "name": "Повреждение ткани",
+      "nameEn": "Tissue Damage",
+      "severity": "high",
+      "description": "Непреднамеренное повреждение тканей",
+      "color": "#8B0000"
+    },
+    {
+      "id": "evt_005",
+      "name": "Клипирование сосуда",
+      "nameEn": "Vessel Clipping",
+      "severity": "medium",
+      "description": "Наложение клипсы на сосуд",
+      "color": "#4169E1"
+    },
+    {
+      "id": "evt_006",
+      "name": "Смена инструмента",
+      "nameEn": "Instrument Change",
+      "severity": "low",
+      "description": "Замена хирургического инструмента",
+      "color": "#90EE90"
+    },
+    {
+      "id": "evt_007",
+      "name": "Перефокусировка микроскопа",
+      "nameEn": "Microscope Refocus",
+      "severity": "low",
+      "description": "Изменение фокуса или положения микроскопа",
+      "color": "#87CEEB"
+    },
+    {
+      "id": "evt_008",
+      "name": "Резкое движение",
+      "nameEn": "Sudden Movement",
+      "severity": "medium",
+      "description": "Быстрое или резкое движение в кадре",
+      "color": "#FFA500"
+    },
+    {
+      "id": "evt_009",
+      "name": "Отёк мозга",
+      "nameEn": "Brain Swelling",
+      "severity": "high",
+      "description": "Признаки отёка мозговой ткани",
+      "color": "#FF6347"
+    },
+    {
+      "id": "evt_010",
+      "name": "Успешная резекция",
+      "nameEn": "Successful Resection",
+      "severity": "low",
+      "description": "Завершение этапа удаления опухоли",
+      "color": "#32CD32"
+    },
+    {
+      "id": "evt_011",
+      "name": "Разрыв аневризмы",
+      "nameEn": "Aneurysm Rupture",
+      "severity": "critical",
+      "description": "Интраоперационный разрыв аневризмы",
+      "color": "#8B0000"
+    },
+    {
+      "id": "evt_012",
+      "name": "Венозное кровотечение",
+      "nameEn": "Venous Bleeding",
+      "severity": "high",
+      "description": "Кровотечение из венозного источника",
+      "color": "#4169E1"
+    }
+  ],
+  "phases": [
+    {
+      "id": "phase_001",
+      "name": "Подготовка и укладка пациента",
+      "nameEn": "Patient Positioning",
+      "order": 1,
+      "description": "Подготовка операционного поля"
+    },
+    {
+      "id": "phase_002",
+      "name": "Краниотомия",
+      "nameEn": "Craniotomy",
+      "order": 2,
+      "description": "Формирование костного лоскута"
+    },
+    {
+      "id": "phase_003",
+      "name": "Вскрытие твёрдой мозговой оболочки",
+      "nameEn": "Dura Opening",
+      "order": 3,
+      "description": "Рассечение и отведение ТМО"
+    },
+    {
+      "id": "phase_004",
+      "name": "Диссекция",
+      "nameEn": "Dissection",
+      "order": 4,
+      "description": "Разделение тканей и доступ к патологии"
+    },
+    {
+      "id": "phase_005",
+      "name": "Резекция опухоли",
+      "nameEn": "Tumor Resection",
+      "order": 5,
+      "description": "Удаление патологического образования"
+    },
+    {
+      "id": "phase_006",
+      "name": "Клипирование аневризмы",
+      "nameEn": "Aneurysm Clipping",
+      "order": 5,
+      "description": "Наложение клипсы на шейку аневризмы"
+    },
+    {
+      "id": "phase_007",
+      "name": "Гемостаз",
+      "nameEn": "Hemostasis",
+      "order": 6,
+      "description": "Остановка кровотечения и контроль"
+    },
+    {
+      "id": "phase_008",
+      "name": "Ушивание ТМО",
+      "nameEn": "Dura Closure",
+      "order": 7,
+      "description": "Герметизация твёрдой мозговой оболочки"
+    },
+    {
+      "id": "phase_009",
+      "name": "Закрытие краниотомии",
+      "nameEn": "Craniotomy Closure",
+      "order": 8,
+      "description": "Фиксация костного лоскута"
+    },
+    {
+      "id": "phase_010",
+      "name": "Ушивание раны",
+      "nameEn": "Wound Closure",
+      "order": 9,
+      "description": "Послойное ушивание мягких тканей"
+    }
+  ],
+  "operationTypes": [
+    {
+      "id": "type_001",
+      "name": "Удаление менингиомы",
+      "nameEn": "Meningioma Resection"
+    },
+    {
+      "id": "type_002",
+      "name": "Клипирование аневризмы",
+      "nameEn": "Aneurysm Clipping"
+    },
+    {
+      "id": "type_003",
+      "name": "Резекция глиомы",
+      "nameEn": "Glioma Resection"
+    },
+    {
+      "id": "type_004",
+      "name": "Удаление аденомы гипофиза",
+      "nameEn": "Pituitary Adenoma Resection"
+    },
+    {
+      "id": "type_005",
+      "name": "Микроваскулярная декомпрессия",
+      "nameEn": "Microvascular Decompression"
+    },
+    {
+      "id": "type_006",
+      "name": "Эндоскопическая операция",
+      "nameEn": "Endoscopic Surgery"
+    },
+    {
+      "id": "type_007",
+      "name": "Шунтирование",
+      "nameEn": "Shunt Procedure"
+    },
+    {
+      "id": "type_008",
+      "name": "Биопсия",
+      "nameEn": "Brain Biopsy"
+    }
+  ],
+  "surgeons": [
+    { "id": "surg_001", "name": "Проф. Иванов А.С." },
+    { "id": "surg_002", "name": "Д.м.н. Петрова М.В." },
+    { "id": "surg_003", "name": "К.м.н. Сидоров К.П." },
+    { "id": "surg_004", "name": "Проф. Козлова Е.Н." }
+  ]
+}

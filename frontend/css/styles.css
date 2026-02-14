@@ -706,10 +706,10 @@ input:focus, select:focus, textarea:focus {
 
 .timeline-track {
     position: relative;
-    height: 60px;
+    height: 64px;
     background: var(--bg-tertiary);
     border-radius: var(--radius-md);
-    overflow: hidden;
+    overflow: visible;
 }
 
 .timeline-segments {

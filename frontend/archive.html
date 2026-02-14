@@ -7,6 +7,921 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===================== Archive Page Styles ===================== */
+        
+        /* Hero Search Section */
+        .archive-hero {
+            background: linear-gradient(135deg, rgba(26,115,232,0.15) 0%, rgba(156,39,176,0.08) 50%, rgba(52,168,83,0.08) 100%);
+            border-radius: var(--radius-xl);
+            padding: 36px 32px 28px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .archive-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(26,115,232,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .archive-hero-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .archive-hero-title i {
+            color: var(--primary);
+            font-size: 22px;
+        }
+        
+        .archive-hero-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        /* Big Search Bar */
+        .archive-search-bar {
+            display: flex;
+            gap: 0;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+        
+        .archive-search-bar:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26,115,232,0.15);
+        }
+        
+        .archive-search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 16px 20px;
+            font-size: 16px;
+            color: var(--text-primary);
+            outline: none;
+        }
+        
+        .archive-search-bar input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .archive-search-bar .search-action-btn {
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background var(--transition-fast);
+            white-space: nowrap;
+        }
+        
+        .archive-search-bar .search-action-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Stats Row */
+        .archive-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        
+        .archive-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .archive-stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+        
+        .archive-stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .archive-stat-icon.blue { background: rgba(26,115,232,0.15); color: var(--primary); }
+        .archive-stat-icon.green { background: rgba(52,168,83,0.15); color: var(--success); }
+        .archive-stat-icon.purple { background: rgba(156,39,176,0.15); color: var(--medical-purple); }
+        .archive-stat-icon.orange { background: rgba(255,152,0,0.15); color: var(--medical-orange); }
+        
+        /* ===================== Filters Section ===================== */
+        
+        .filters-section {
+            margin-bottom: 24px;
+        }
+        
+        .filters-toggle-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .filters-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px 18px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .filters-toggle-btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary);
+        }
+        
+        .filters-toggle-btn.active {
+            background: rgba(26,115,232,0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .filters-toggle-btn .filter-count-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 11px;
+            padding: 1px 7px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .filters-right-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Sort Control */
+        .sort-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .sort-control select {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .sort-control select option {
+            background: var(--bg-secondary);
+        }
+        
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .view-toggle-btn {
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all var(--transition-fast);
+        }
+        
+        .view-toggle-btn:hover {
+            color: var(--text-primary);
+        }
+        
+        .view-toggle-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Filters Panel (collapsible) */
+        .filters-panel-modern {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, margin 0.3s ease;
+            margin-bottom: 0;
+        }
+        
+        .filters-panel-modern.open {
+            max-height: 800px;
+            opacity: 1;
+            margin-bottom: 20px;
+        }
+        
+        .filters-panel-inner {
+            padding: 24px;
+        }
+        
+        .filters-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .filters-panel-title {
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filters-panel-title i {
+            color: var(--primary);
+        }
+        
+        .filters-panel-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-filter-reset {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .btn-filter-reset:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        .btn-filter-apply {
+            padding: 6px 16px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .btn-filter-apply:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Filter Groups Grid */
+        .filters-grid-modern {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .filters-grid-modern { grid-template-columns: 1fr; }
+        }
+        
+        .filter-group-modern {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .filter-group-modern.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .filter-group-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .filter-group-label i {
+            font-size: 11px;
+        }
+        
+        /* Chip Selector */
+        .chip-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .chip-option {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .chip-option:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+        
+        .chip-option.selected {
+            background: rgba(26,115,232,0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .chip-option.selected .chip-check {
+            display: inline;
+        }
+        
+        .chip-check {
+            display: none;
+            font-size: 10px;
+        }
+        
+        /* Inline filter selects */
+        .filter-select-modern {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: border-color var(--transition-fast);
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23717171' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+        
+        .filter-select-modern:focus {
+            border-color: var(--primary);
+        }
+        
+        .filter-select-modern option {
+            background: var(--bg-secondary);
+        }
+        
+        .filter-input-modern {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+            transition: border-color var(--transition-fast);
+        }
+        
+        .filter-input-modern:focus {
+            border-color: var(--primary);
+        }
+        
+        /* Range slider styled */
+        .confidence-slider-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .confidence-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, var(--danger) 0%, var(--warning) 50%, var(--success) 100%);
+            outline: none;
+        }
+        
+        .confidence-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        
+        .confidence-value-badge {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 46px;
+            text-align: center;
+        }
+        
+        .date-range-row {
+            display: flex;
+            gap: 8px;
+        }
+        
+        /* Active Filters Bar */
+        .active-filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+        
+        .active-filters-bar:empty,
+        .active-filters-bar.hidden {
+            display: none;
+        }
+        
+        .active-filters-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-right: 4px;
+            font-weight: 500;
+        }
+        
+        .active-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: default;
+            animation: chipIn 0.2s ease;
+        }
+
+        @keyframes chipIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .active-chip.phase { background: rgba(66,133,244,0.15); color: #4285f4; }
+        .active-chip.instrument { background: rgba(52,168,83,0.15); color: #34a853; }
+        .active-chip.anatomy { background: rgba(156,39,176,0.15); color: #9c27b0; }
+        .active-chip.event { background: rgba(234,67,53,0.15); color: #ea4335; }
+        .active-chip.surgeon { background: rgba(255,152,0,0.15); color: #ff9800; }
+        .active-chip.type { background: rgba(0,188,212,0.15); color: #00bcd4; }
+        .active-chip.query { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+        .active-chip.date { background: rgba(251,188,4,0.15); color: #fbbc04; }
+        
+        .active-chip .remove-chip {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+        
+        .active-chip .remove-chip:hover {
+            background: rgba(234,67,53,0.5);
+        }
+        
+        .clear-all-filters {
+            margin-left: auto;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-muted);
+            padding: 3px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .clear-all-filters:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        /* ===================== Results Section ===================== */
+        
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .results-count {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .results-count strong {
+            color: var(--text-primary);
+        }
+        
+        /* Grid View */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+        }
+        
+        .result-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .result-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(26,115,232,0.2);
+        }
+        
+        .result-card-thumb {
+            width: 100%;
+            height: 180px;
+            background: var(--bg-tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        
+        .result-card:hover .result-card-thumb img {
+            transform: scale(1.05);
+        }
+        
+        .result-card-thumb-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px 14px 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        
+        .result-card-duration {
+            background: rgba(0,0,0,0.75);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .result-card-status {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .result-card-status.completed {
+            background: rgba(52,168,83,0.2);
+            color: var(--success);
+        }
+        
+        .result-card-status.pending {
+            background: rgba(251,188,4,0.2);
+            color: var(--warning);
+        }
+        
+        .result-card-body {
+            padding: 14px 16px;
+        }
+        
+        .result-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .result-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .result-card-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .result-card-meta-item i {
+            font-size: 11px;
+            width: 14px;
+            text-align: center;
+        }
+        
+        .result-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        .result-card-tag {
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+        
+        .result-card-tag.phase { border-color: rgba(66,133,244,0.3); color: #4285f4; background: rgba(66,133,244,0.08); }
+        .result-card-tag.instrument { border-color: rgba(52,168,83,0.3); color: #34a853; background: rgba(52,168,83,0.08); }
+        .result-card-tag.anatomy { border-color: rgba(156,39,176,0.3); color: #9c27b0; background: rgba(156,39,176,0.08); }
+        .result-card-tag.event { border-color: rgba(234,67,53,0.3); color: #ea4335; background: rgba(234,67,53,0.08); }
+        
+        .result-card-footer {
+            padding: 10px 16px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .result-card-matches {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .result-card-action {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color var(--transition-fast);
+        }
+        
+        .result-card:hover .result-card-action {
+            color: var(--primary);
+        }
+        
+        /* List View */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .result-list-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .result-list-item:hover {
+            border-color: var(--primary);
+            background: var(--bg-tertiary);
+        }
+        
+        .result-list-thumb {
+            width: 120px;
+            height: 68px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg-tertiary);
+        }
+        
+        .result-list-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .result-list-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .result-list-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .result-list-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        
+        .result-list-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        
+        .result-list-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        /* Empty State Redesign */
+        .empty-state-modern {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .empty-state-text {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state-btn {
+            padding: 10px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .empty-state-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Loading skeleton */
+        .skeleton-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .skeleton-thumb {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-hover) 50%, var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        .skeleton-body {
+            padding: 16px;
+        }
+        
+        .skeleton-line {
+            height: 14px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-hover) 50%, var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            margin-bottom: 10px;
+        }
+        
+        .skeleton-line.short { width: 60%; }
+        .skeleton-line.medium { width: 80%; }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -22,17 +937,6 @@
                     </div>
                     <span>NeuroVision</span>
                 </a>
-            </div>
-            
-            <div class="header-center">
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="globalSearch" placeholder="Поиск по всему архиву...">
-                    </div>
-                    <button class="search-btn" id="searchBtn">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
             </div>
             
             <div class="header-right">
@@ -65,6 +969,10 @@
             
             <div class="sidebar-section">
                 <div class="sidebar-title">Быстрые фильтры</div>
+                <a href="#" class="sidebar-item" data-quick="all">
+                    <i class="fas fa-layer-group" style="color: #4285f4;"></i>
+                    <span>Все операции</span>
+                </a>
                 <a href="#" class="sidebar-item" data-quick="bleeding">
                     <i class="fas fa-tint" style="color: #ea4335;"></i>
                     <span>Кровотечения</span>
@@ -86,123 +994,218 @@
         
         <!-- Main Content -->
         <main class="page-content">
-            <h1 class="mb-4">Поиск и архив</h1>
-            
-            <!-- Advanced Filters -->
-            <div class="filters-panel">
-                <div class="filters-header">
-                    <span class="filters-title">
-                        <i class="fas fa-filter"></i>
-                        Расширенные фильтры
-                    </span>
-                    <button class="btn btn-sm btn-secondary" id="resetFiltersBtn">
-                        <i class="fas fa-undo"></i>
-                        Сбросить
+            <!-- Hero Search -->
+            <div class="archive-hero">
+                <h1 class="archive-hero-title">
+                    <i class="fas fa-search"></i>
+                    Поиск и архив
+                </h1>
+                <p class="archive-hero-subtitle">Находите нужные моменты операций с помощью AI-powered поиска</p>
+                
+                <div class="archive-search-bar">
+                    <input type="text" id="globalSearch" placeholder="Поиск по названию, хирургу, типу операции, инструменту...">
+                    <button class="search-action-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                        Найти
                     </button>
                 </div>
                 
-                <div class="filters-grid">
-                    <!-- Этапы операции -->
-                    <div class="filter-group">
-                        <label class="filter-label">Этапы операции</label>
-                        <select id="filterPhases" class="filter-select" multiple>
-                            <!-- Заполняется из API -->
-                        </select>
+                <div class="archive-stats" id="archiveStats">
+                    <div class="archive-stat">
+                        <div class="archive-stat-icon blue"><i class="fas fa-video"></i></div>
+                        <div>
+                            <div class="archive-stat-value" id="statOps">—</div>
+                            <div>операций</div>
+                        </div>
                     </div>
-                    
-                    <!-- Инструменты -->
-                    <div class="filter-group">
-                        <label class="filter-label">Инструменты</label>
-                        <select id="filterInstruments" class="filter-select" multiple>
-                            <!-- Заполняется из API -->
-                        </select>
+                    <div class="archive-stat">
+                        <div class="archive-stat-icon green"><i class="fas fa-puzzle-piece"></i></div>
+                        <div>
+                            <div class="archive-stat-value" id="statSegments">—</div>
+                            <div>сегментов</div>
+                        </div>
                     </div>
-                    
-                    <!-- Анатомические структуры -->
-                    <div class="filter-group">
-                        <label class="filter-label">Анатомические структуры</label>
-                        <select id="filterAnatomy" class="filter-select" multiple>
-                            <!-- Заполняется из API -->
-                        </select>
+                    <div class="archive-stat">
+                        <div class="archive-stat-icon purple"><i class="fas fa-user-md"></i></div>
+                        <div>
+                            <div class="archive-stat-value" id="statSurgeons">—</div>
+                            <div>хирургов</div>
+                        </div>
                     </div>
-                    
-                    <!-- События -->
-                    <div class="filter-group">
-                        <label class="filter-label">События / Осложнения</label>
-                        <select id="filterEvents" class="filter-select" multiple>
-                            <!-- Заполняется из API -->
-                        </select>
+                    <div class="archive-stat">
+                        <div class="archive-stat-icon orange"><i class="fas fa-tools"></i></div>
+                        <div>
+                            <div class="archive-stat-value" id="statDetections">—</div>
+                            <div>детекций</div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="filters-toggle-bar">
+                    <button class="filters-toggle-btn" id="filtersToggleBtn">
+                        <i class="fas fa-sliders-h"></i>
+                        Фильтры
+                        <span class="filter-count-badge hidden" id="filterCountBadge">0</span>
+                    </button>
                     
-                    <!-- Хирурги -->
-                    <div class="filter-group">
-                        <label class="filter-label">Хирург</label>
-                        <select id="filterSurgeon" class="filter-select">
-                            <option value="">Все хирурги</option>
-                            <!-- Заполняется из API -->
-                        </select>
+                    <div class="filters-right-controls">
+                        <div class="sort-control">
+                            <i class="fas fa-sort-amount-down"></i>
+                            <select id="sortSelect">
+                                <option value="date-desc">Сначала новые</option>
+                                <option value="date-asc">Сначала старые</option>
+                                <option value="title-asc">По названию А-Я</option>
+                                <option value="duration-desc">По длительности ↓</option>
+                            </select>
+                        </div>
+                        <div class="view-toggle">
+                            <button class="view-toggle-btn active" data-view="grid" title="Сетка">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-toggle-btn" data-view="list" title="Список">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
                     </div>
-                    
-                    <!-- Тип операции -->
-                    <div class="filter-group">
-                        <label class="filter-label">Тип операции</label>
-                        <select id="filterType" class="filter-select">
-                            <option value="">Все типы</option>
-                            <!-- Заполняется из API -->
-                        </select>
-                    </div>
-                    
-                    <!-- Дата от -->
-                    <div class="filter-group">
-                        <label class="filter-label">Дата от</label>
-                        <input type="date" id="filterDateFrom" class="filter-select">
-                    </div>
-                    
-                    <!-- Дата до -->
-                    <div class="filter-group">
-                        <label class="filter-label">Дата до</label>
-                        <input type="date" id="filterDateTo" class="filter-select">
-                    </div>
-                    
-                    <!-- Уверенность модели -->
-                    <div class="filter-group">
-                        <label class="filter-label">Мин. уверенность AI (%)</label>
-                        <input type="range" id="filterConfidence" min="0" max="100" value="50" class="filter-select">
-                        <span id="confidenceValue">50%</span>
+                </div>
+                
+                <!-- Collapsible Filter Panel -->
+                <div class="filters-panel-modern" id="filtersPanel">
+                    <div class="filters-panel-inner">
+                        <div class="filters-panel-header">
+                            <span class="filters-panel-title">
+                                <i class="fas fa-filter"></i>
+                                Расширенные фильтры
+                            </span>
+                            <div class="filters-panel-actions">
+                                <button class="btn-filter-reset" id="resetFiltersBtn">
+                                    <i class="fas fa-undo"></i> Сбросить
+                                </button>
+                                <button class="btn-filter-apply" id="applyFiltersBtn">
+                                    <i class="fas fa-check"></i> Применить
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="filters-grid-modern">
+                            <!-- Этапы операции -->
+                            <div class="filter-group-modern full-width">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-layer-group"></i> Этапы операции
+                                </div>
+                                <div class="chip-selector" id="filterPhases">
+                                    <!-- Chips populate from JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- Инструменты -->
+                            <div class="filter-group-modern full-width">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-tools"></i> Инструменты
+                                </div>
+                                <div class="chip-selector" id="filterInstruments">
+                                    <!-- Chips populate from JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- Анатомические структуры -->
+                            <div class="filter-group-modern full-width">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-brain"></i> Анатомические структуры
+                                </div>
+                                <div class="chip-selector" id="filterAnatomy">
+                                    <!-- Chips populate from JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- События -->
+                            <div class="filter-group-modern full-width">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-bolt"></i> События / Осложнения
+                                </div>
+                                <div class="chip-selector" id="filterEvents">
+                                    <!-- Chips populate from JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- Selects Row -->
+                            <div class="filter-group-modern">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-user-md"></i> Хирург
+                                </div>
+                                <select id="filterSurgeon" class="filter-select-modern">
+                                    <option value="">Все хирурги</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group-modern">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-tag"></i> Тип операции
+                                </div>
+                                <select id="filterType" class="filter-select-modern">
+                                    <option value="">Все типы</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group-modern">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-robot"></i> Мин. уверенность AI
+                                </div>
+                                <div class="confidence-slider-wrap">
+                                    <input type="range" id="filterConfidence" class="confidence-slider" min="0" max="100" value="50">
+                                    <span class="confidence-value-badge" id="confidenceValue">50%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Date Range -->
+                            <div class="filter-group-modern" style="grid-column: span 2;">
+                                <div class="filter-group-label">
+                                    <i class="fas fa-calendar-alt"></i> Период
+                                </div>
+                                <div class="date-range-row">
+                                    <input type="date" id="filterDateFrom" class="filter-input-modern" placeholder="От">
+                                    <span style="color: var(--text-muted); align-self: center;">—</span>
+                                    <input type="date" id="filterDateTo" class="filter-input-modern" placeholder="До">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Active Filters -->
-                <div class="active-filters" id="activeFilters" style="display: none;">
-                    <span class="filter-label">Активные фильтры:</span>
+                <div class="active-filters-bar hidden" id="activeFiltersBar">
+                    <span class="active-filters-label"><i class="fas fa-filter"></i> Фильтры:</span>
                     <div id="activeFilterChips"></div>
-                </div>
-                
-                <!-- Search Button -->
-                <div class="d-flex justify-between align-center mt-3">
-                    <span id="resultsCount" class="text-muted">-</span>
-                    <button class="btn btn-primary" id="applyFiltersBtn">
-                        <i class="fas fa-search"></i>
-                        Применить фильтры
+                    <button class="clear-all-filters" id="clearAllFilters">
+                        <i class="fas fa-times"></i> Очистить все
                     </button>
                 </div>
             </div>
             
+            <!-- Results Header -->
+            <div class="results-header">
+                <div class="results-count" id="resultsCount">Загрузка...</div>
+            </div>
+            
             <!-- Search Results -->
-            <div class="search-results" id="searchResults">
-                <div class="loading">
-                    <div class="spinner"></div>
-                </div>
+            <div id="searchResults" class="results-grid">
+                <!-- Loading skeletons -->
+                <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div></div>
+                <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line medium"></div><div class="skeleton-line short"></div></div></div>
             </div>
             
             <!-- Empty State -->
-            <div class="empty-state hidden" id="emptyState">
-                <div class="empty-icon">
+            <div class="empty-state-modern hidden" id="emptyState">
+                <div class="empty-state-icon">
                     <i class="fas fa-search"></i>
                 </div>
-                <h3 class="empty-title">Ничего не найдено</h3>
-                <p class="empty-text">Попробуйте изменить параметры поиска или сбросить фильтры</p>
-                <button class="btn btn-secondary" id="clearSearchBtn">
+                <h3 class="empty-state-title">Ничего не найдено</h3>
+                <p class="empty-state-text">Попробуйте изменить параметры поиска или сбросить фильтры</p>
+                <button class="empty-state-btn" id="clearSearchBtn">
                     <i class="fas fa-undo"></i>
                     Сбросить фильтры
                 </button>

@@ -15,6 +15,9 @@
         instruments: [],
         anatomy: []
     };
+    let annotationsList = [];
+    let activeAnnotationFilter = 'all';
+    let annotationType = 'comment';
     
     document.addEventListener('DOMContentLoaded', init);
     
@@ -49,6 +52,7 @@
             renderEvents();
             renderSubtitles();
             loadRelatedOperations();
+            loadAnnotations();
             
             // Установить видео
             const videoPlayer = document.getElementById('videoPlayer');
@@ -487,6 +491,9 @@
                 if (e.key === 'Enter') searchInVideo(searchInput.value);
             });
         }
+        
+        // Обработчики аннотаций
+        setupAnnotationEventListeners();
     }
     
     function startTimeSimulation() {
@@ -513,6 +520,9 @@
             const isActive = Math.abs(currentTime - start) < 30;
             item.classList.toggle('active', isActive);
         });
+        
+        // Обновить метки в форме аннотаций
+        updateAnnotationFormLabels();
     }
     
     function updateSubtitle() {
@@ -825,6 +835,407 @@
         });
         
         return subtitles;
+    }
+    
+    // ==================== ANNOTATIONS ====================
+    
+    async function loadAnnotations() {
+        try {
+            const response = await API.getAnnotations(operation.id);
+            annotationsList = response.data || [];
+            renderAnnotations();
+            renderAnnotationMarkers();
+        } catch (error) {
+            console.error('Load annotations error:', error);
+            annotationsList = [];
+        }
+    }
+    
+    function updateAnnotationFormLabels() {
+        const timeLabel = document.getElementById('annotationTimeLabel');
+        const phaseLabel = document.getElementById('annotationPhaseLabel');
+        const startTimeInput = document.getElementById('annotationStartTime');
+        
+        if (timeLabel) {
+            timeLabel.textContent = Utils.formatTime(currentTime);
+        }
+        if (startTimeInput) {
+            startTimeInput.value = Utils.formatTime(currentTime);
+        }
+        
+        // Определить текущую фазу
+        if (phaseLabel && operation.segments) {
+            const phases = operation.segments.filter(s => s.type === 'phase');
+            const currentPhase = phases.find(p => currentTime >= p.startTime && currentTime <= p.endTime);
+            phaseLabel.textContent = currentPhase ? currentPhase.name : '—';
+        }
+    }
+    
+    function renderAnnotations() {
+        const container = document.getElementById('annotationList');
+        const countEl = document.getElementById('annotationCount');
+        
+        if (!container) return;
+        
+        // Фильтрация
+        let filtered = annotationsList;
+        if (activeAnnotationFilter !== 'all') {
+            filtered = annotationsList.filter(a => a.type === activeAnnotationFilter);
+        }
+        
+        // Обновить счётчик
+        if (countEl) {
+            const total = annotationsList.length;
+            const shown = filtered.length;
+            const word = pluralize(total, 'аннотация', 'аннотации', 'аннотаций');
+            countEl.querySelector('span').textContent = activeAnnotationFilter === 'all'
+                ? `${total} ${word}`
+                : `${shown} из ${total} ${word}`;
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="text-muted text-center p-3">Аннотаций пока нет. Поставьте видео на нужный момент и добавьте комментарий.</div>';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(ann => {
+            const typeLabels = {
+                comment: '<i class="fas fa-comment"></i> Комментарий',
+                note: '<i class="fas fa-sticky-note"></i> Заметка',
+                question: '<i class="fas fa-question-circle"></i> Вопрос',
+                important: '<i class="fas fa-exclamation-triangle"></i> Важное'
+            };
+            
+            const timeStr = ann.endTimestamp
+                ? `${Utils.formatTime(ann.timestamp)} — ${Utils.formatTime(ann.endTimestamp)}`
+                : Utils.formatTime(ann.timestamp);
+            
+            const repliesHtml = (ann.replies && ann.replies.length > 0)
+                ? `<div class="annotation-replies">
+                    ${ann.replies.map(r => `
+                        <div class="annotation-reply">
+                            <span class="annotation-reply-author">${escapeHtml(r.author)}:</span>
+                            <span class="annotation-reply-text">${escapeHtml(r.text)}</span>
+                        </div>
+                    `).join('')}
+                </div>`
+                : '';
+            
+            return `
+                <div class="annotation-card type-${ann.type}" data-id="${ann.id}" data-time="${ann.timestamp}">
+                    <div class="annotation-card-header">
+                        <span class="annotation-card-time" onclick="seekTo(${ann.timestamp})">
+                            <i class="fas fa-clock"></i> ${timeStr}
+                        </span>
+                        <span class="annotation-card-type ${ann.type}">${typeLabels[ann.type] || ann.type}</span>
+                    </div>
+                    <div class="annotation-card-text">${escapeHtml(ann.text)}</div>
+                    ${ann.phase ? `<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;"><i class="fas fa-tag"></i> ${escapeHtml(ann.phase)}</div>` : ''}
+                    ${repliesHtml}
+                    <div class="annotation-card-footer">
+                        <span class="annotation-card-author">
+                            <i class="fas fa-user"></i> ${escapeHtml(ann.author || 'Аноним')}
+                            <span style="margin-left:8px;color:var(--text-muted);">${formatRelativeDate(ann.createdAt)}</span>
+                        </span>
+                        <div class="annotation-card-actions">
+                            <button class="annotation-action-btn" onclick="event.stopPropagation(); window.replyToAnnotation('${ann.id}')" title="Ответить">
+                                <i class="fas fa-reply"></i>
+                            </button>
+                            <button class="annotation-action-btn delete" onclick="event.stopPropagation(); window.deleteAnnotation('${ann.id}')" title="Удалить">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    function renderAnnotationMarkers() {
+        const container = document.getElementById('timelineAnnotations');
+        if (!container || !duration) return;
+        
+        container.innerHTML = annotationsList.map(ann => {
+            const left = (ann.timestamp / duration) * 100;
+            const tooltip = `${Utils.formatTime(ann.timestamp)}: ${ann.text.substring(0, 40)}${ann.text.length > 40 ? '...' : ''}`;
+            
+            let html = '';
+            
+            // Диапазон
+            if (ann.endTimestamp) {
+                const rangeLeft = left;
+                const rangeWidth = ((ann.endTimestamp - ann.timestamp) / duration) * 100;
+                html += `<div class="timeline-annotation-range type-${ann.type}"
+                              style="left: ${rangeLeft}%; width: ${rangeWidth}%;"
+                              onclick="seekTo(${ann.timestamp})"
+                              title="${escapeAttr(tooltip)}"></div>`;
+            }
+            
+            // Точечный маркер
+            html += `<div class="timeline-annotation-marker type-${ann.type}"
+                          style="left: ${left}%;"
+                          data-tooltip="${escapeAttr(tooltip)}"
+                          onclick="seekTo(${ann.timestamp})"></div>`;
+            
+            return html;
+        }).join('');
+    }
+    
+    async function addAnnotation() {
+        const textEl = document.getElementById('annotationText');
+        const authorEl = document.getElementById('annotationAuthor');
+        const rangeToggle = document.getElementById('annotationRangeToggle');
+        const endTimeInput = document.getElementById('annotationEndTime');
+        
+        const text = textEl.value.trim();
+        if (!text) {
+            textEl.focus();
+            textEl.style.borderColor = 'var(--danger)';
+            setTimeout(() => { textEl.style.borderColor = ''; }, 1500);
+            return;
+        }
+        
+        // Определить текущую фазу
+        let phase = null;
+        if (operation.segments) {
+            const phases = operation.segments.filter(s => s.type === 'phase');
+            const currentPhase = phases.find(p => currentTime >= p.startTime && currentTime <= p.endTime);
+            if (currentPhase) phase = currentPhase.name;
+        }
+        
+        const data = {
+            timestamp: Math.round(currentTime * 100) / 100,
+            text: text,
+            author: authorEl.value.trim() || 'Аноним',
+            type: annotationType,
+            phase: phase
+        };
+        
+        // Диапазон времени
+        if (rangeToggle.checked && endTimeInput.value) {
+            data.endTimestamp = parseTimeInput(endTimeInput.value);
+        }
+        
+        try {
+            const btn = document.getElementById('addAnnotationBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            await API.createAnnotation(operation.id, data);
+            
+            // Очистить форму
+            textEl.value = '';
+            if (endTimeInput) endTimeInput.value = '';
+            if (rangeToggle) rangeToggle.checked = false;
+            document.getElementById('annotationRange').classList.add('hidden');
+            
+            // Перезагрузить аннотации
+            await loadAnnotations();
+            
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Добавить';
+            
+            // Показать flash-эффект
+            showAnnotationToast('Аннотация добавлена');
+        } catch (error) {
+            console.error('Add annotation error:', error);
+            const btn = document.getElementById('addAnnotationBtn');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Добавить';
+            alert('Ошибка при добавлении аннотации');
+        }
+    }
+    
+    // Глобальные функции для onclick в HTML
+    window.deleteAnnotation = async function(annotationId) {
+        if (!confirm('Удалить аннотацию?')) return;
+        
+        try {
+            await API.deleteAnnotation(operation.id, annotationId);
+            await loadAnnotations();
+            showAnnotationToast('Аннотация удалена');
+        } catch (error) {
+            console.error('Delete annotation error:', error);
+            alert('Ошибка при удалении');
+        }
+    };
+    
+    window.replyToAnnotation = function(annotationId) {
+        const card = document.querySelector(`.annotation-card[data-id="${annotationId}"]`);
+        if (!card) return;
+        
+        // Удалить предыдущую форму ответа
+        const existingForm = card.querySelector('.annotation-reply-form');
+        if (existingForm) {
+            existingForm.remove();
+            return;
+        }
+        
+        const replyForm = document.createElement('div');
+        replyForm.className = 'annotation-reply-form';
+        replyForm.innerHTML = `
+            <input type="text" class="annotation-reply-input" placeholder="Ваш ответ..." autofocus>
+            <button class="btn btn-primary btn-sm" onclick="window.submitReply('${annotationId}', this)">
+                <i class="fas fa-reply"></i>
+            </button>
+        `;
+        
+        // Вставить перед footer
+        const footer = card.querySelector('.annotation-card-footer');
+        card.insertBefore(replyForm, footer);
+        
+        const input = replyForm.querySelector('input');
+        input.focus();
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                window.submitReply(annotationId, replyForm.querySelector('button'));
+            }
+        });
+    };
+    
+    window.submitReply = async function(annotationId, btnEl) {
+        const form = btnEl.closest('.annotation-reply-form');
+        const input = form.querySelector('input');
+        const text = input.value.trim();
+        
+        if (!text) return;
+        
+        const authorEl = document.getElementById('annotationAuthor');
+        const author = (authorEl && authorEl.value.trim()) || 'Аноним';
+        
+        try {
+            btnEl.disabled = true;
+            btnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            await API.replyToAnnotation(operation.id, annotationId, { text, author });
+            await loadAnnotations();
+            showAnnotationToast('Ответ добавлен');
+        } catch (error) {
+            console.error('Reply error:', error);
+            alert('Ошибка при отправке ответа');
+            btnEl.disabled = false;
+            btnEl.innerHTML = '<i class="fas fa-reply"></i>';
+        }
+    };
+    
+    function setupAnnotationEventListeners() {
+        // Кнопка добавления
+        const addBtn = document.getElementById('addAnnotationBtn');
+        if (addBtn) {
+            addBtn.addEventListener('click', addAnnotation);
+        }
+        
+        // Клавиша Enter в textarea (Ctrl+Enter для отправки)
+        const textArea = document.getElementById('annotationText');
+        if (textArea) {
+            textArea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    addAnnotation();
+                }
+            });
+        }
+        
+        // Переключатель типа аннотации
+        document.querySelectorAll('.annotation-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.annotation-type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                annotationType = btn.dataset.type;
+            });
+        });
+        
+        // Переключатель диапазона
+        const rangeToggle = document.getElementById('annotationRangeToggle');
+        if (rangeToggle) {
+            rangeToggle.addEventListener('change', () => {
+                const rangePanel = document.getElementById('annotationRange');
+                if (rangeToggle.checked) {
+                    rangePanel.classList.remove('hidden');
+                    document.getElementById('annotationStartTime').value = Utils.formatTime(currentTime);
+                } else {
+                    rangePanel.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Фильтры аннотаций
+        document.querySelectorAll('#annotationsTab .quick-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#annotationsTab .quick-filter').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeAnnotationFilter = btn.dataset.filter;
+                renderAnnotations();
+            });
+        });
+    }
+    
+    // Утилиты аннотаций
+    function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+    
+    function escapeAttr(str) {
+        if (!str) return '';
+        return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;');
+    }
+    
+    function pluralize(n, one, few, many) {
+        const mod10 = n % 10;
+        const mod100 = n % 100;
+        if (mod100 >= 11 && mod100 <= 14) return many;
+        if (mod10 === 1) return one;
+        if (mod10 >= 2 && mod10 <= 4) return few;
+        return many;
+    }
+    
+    function formatRelativeDate(isoString) {
+        if (!isoString) return '';
+        const date = new Date(isoString);
+        const now = new Date();
+        const diff = Math.floor((now - date) / 1000);
+        
+        if (diff < 60) return 'только что';
+        if (diff < 3600) return `${Math.floor(diff / 60)} мин назад`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)} ч назад`;
+        if (diff < 604800) return `${Math.floor(diff / 86400)} д назад`;
+        return date.toLocaleDateString('ru-RU');
+    }
+    
+    function parseTimeInput(str) {
+        if (!str) return 0;
+        const parts = str.split(':').map(Number);
+        if (parts.length === 2) return parts[0] * 60 + parts[1];
+        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        return parseFloat(str) || 0;
+    }
+    
+    function showAnnotationToast(message) {
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.3s';
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
     }
     
 })();

@@ -135,6 +135,54 @@ const API = {
     async getStats() {
         return this.request('/stats');
     },
+    
+    // ==================== ANNOTATIONS ====================
+    
+    /**
+     * Получить аннотации операции
+     */
+    async getAnnotations(operationId) {
+        return this.request(`/operations/${operationId}/annotations`);
+    },
+    
+    /**
+     * Создать аннотацию
+     */
+    async createAnnotation(operationId, data) {
+        return this.request(`/operations/${operationId}/annotations`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
+    
+    /**
+     * Обновить аннотацию
+     */
+    async updateAnnotation(operationId, annotationId, data) {
+        return this.request(`/operations/${operationId}/annotations/${annotationId}`, {
+            method: 'PUT',
+            body: JSON.stringify(data)
+        });
+    },
+    
+    /**
+     * Удалить аннотацию
+     */
+    async deleteAnnotation(operationId, annotationId) {
+        return this.request(`/operations/${operationId}/annotations/${annotationId}`, {
+            method: 'DELETE'
+        });
+    },
+    
+    /**
+     * Ответить на аннотацию
+     */
+    async replyToAnnotation(operationId, annotationId, data) {
+        return this.request(`/operations/${operationId}/annotations/${annotationId}/replies`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    },
 };
 
 /**

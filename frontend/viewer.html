@@ -251,6 +251,453 @@
             0%, 100% { box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4); }
             50% { box-shadow: 0 0 0 15px rgba(26, 115, 232, 0); }
         }
+        
+        /* ==================== Annotation Styles ==================== */
+        
+        .annotation-form {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .annotation-form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .annotation-form-time {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .annotation-form-phase {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        .annotation-input {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            padding: 10px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+            transition: border-color var(--transition-fast);
+        }
+        
+        .annotation-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .annotation-form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            gap: 8px;
+        }
+        
+        .annotation-type-selector {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .annotation-type-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .annotation-type-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-muted);
+        }
+        
+        .annotation-type-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .annotation-type-btn[data-type="important"].active {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        .annotation-type-btn[data-type="question"].active {
+            background: var(--warning);
+            border-color: var(--warning);
+            color: #333;
+        }
+        
+        .annotation-type-btn[data-type="note"].active {
+            background: var(--medical-green);
+            border-color: var(--medical-green);
+        }
+        
+        .annotation-form-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .annotation-author-input {
+            width: 80px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            padding: 5px 8px;
+            font-size: 12px;
+        }
+        
+        .annotation-author-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .annotation-range-toggle {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 14px;
+            padding: 4px;
+        }
+        
+        .annotation-range-toggle input {
+            display: none;
+        }
+        
+        .annotation-range-toggle:has(input:checked) {
+            color: var(--primary);
+        }
+        
+        .annotation-range {
+            margin-top: 8px;
+            padding: 8px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .time-input {
+            width: 60px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            padding: 3px 6px;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .annotation-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .annotation-count {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .annotation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .annotation-card {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            border-left: 3px solid var(--primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+        
+        .annotation-card:hover {
+            background: var(--bg-hover);
+        }
+        
+        .annotation-card.active {
+            background: rgba(66, 133, 244, 0.1);
+            border-left-color: var(--primary);
+        }
+        
+        .annotation-card.type-important {
+            border-left-color: var(--danger);
+        }
+        
+        .annotation-card.type-question {
+            border-left-color: var(--warning);
+        }
+        
+        .annotation-card.type-note {
+            border-left-color: var(--medical-green);
+        }
+        
+        .annotation-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .annotation-card-time {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .annotation-card-time:hover {
+            text-decoration: underline;
+        }
+        
+        .annotation-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        
+        .annotation-card-type {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .annotation-card-type.comment { background: rgba(66,133,244,0.15); color: var(--primary); }
+        .annotation-card-type.important { background: rgba(234,67,53,0.15); color: var(--danger); }
+        .annotation-card-type.question { background: rgba(251,188,4,0.2); color: var(--warning); }
+        .annotation-card-type.note { background: rgba(76,175,80,0.15); color: var(--medical-green); }
+        
+        .annotation-card-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 6px;
+            word-break: break-word;
+        }
+        
+        .annotation-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .annotation-card-author {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        
+        .annotation-card-actions {
+            display: flex;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+        
+        .annotation-card:hover .annotation-card-actions {
+            opacity: 1;
+        }
+        
+        .annotation-action-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        
+        .annotation-action-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        
+        .annotation-action-btn.delete:hover {
+            color: var(--danger);
+        }
+        
+        /* Replies */
+        .annotation-replies {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .annotation-reply {
+            display: flex;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 12px;
+        }
+        
+        .annotation-reply-author {
+            color: var(--primary);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .annotation-reply-text {
+            color: var(--text-secondary);
+        }
+        
+        .annotation-reply-form {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        
+        .annotation-reply-input {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        
+        .annotation-reply-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Timeline annotation markers */
+        .timeline-annotations {
+            position: absolute;
+            top: 42px;
+            left: 0;
+            right: 0;
+            height: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-annotation-marker {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--bg-primary);
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition-fast);
+        }
+        
+        .timeline-annotation-marker:hover {
+            transform: translateX(-50%) scale(1.5);
+            z-index: 20;
+        }
+        
+        .timeline-annotation-marker.type-important {
+            background: var(--danger);
+        }
+        
+        .timeline-annotation-marker.type-question {
+            background: var(--warning);
+        }
+        
+        .timeline-annotation-marker.type-note {
+            background: var(--medical-green);
+        }
+        
+        .timeline-annotation-marker::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-fast);
+            border: 1px solid var(--border-color);
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .timeline-annotation-marker:hover::after {
+            opacity: 1;
+        }
+        
+        /* Range annotation on timeline */
+        .timeline-annotation-range {
+            position: absolute;
+            height: 6px;
+            top: 2px;
+            background: rgba(66,133,244,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .timeline-annotation-range.type-important {
+            background: rgba(234,67,53,0.3);
+        }
+        
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body class="viewer-page">
@@ -422,6 +869,7 @@
                         <div class="timeline-track" id="timelineTrack">
                             <div class="timeline-segments" id="timelineSegments"></div>
                             <div class="timeline-events" id="timelineEvents"></div>
+                            <div class="timeline-annotations" id="timelineAnnotations"></div>
                             <div class="timeline-playhead" id="timelinePlayhead" style="left: 0%;"></div>
                         </div>
                         <div class="timeline-time-labels">
@@ -450,6 +898,9 @@
                     <div class="panel">
                         <div class="tabs">
                             <button class="tab active" data-tab="phases">Этапы</button>
+                            <button class="tab" data-tab="annotations">
+                                <i class="fas fa-comment-medical" style="margin-right: 4px;"></i>Аннотации
+                            </button>
                             <button class="tab" data-tab="instruments">Инструменты</button>
                             <button class="tab" data-tab="anatomy">Анатомия</button>
                             <button class="tab" data-tab="events">События</button>
@@ -463,6 +914,79 @@
                                     <div class="loading">
                                         <div class="spinner"></div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Annotations Tab -->
+                        <div class="tab-content" id="annotationsTab">
+                            <div class="panel-content">
+                                <!-- Форма добавления аннотации -->
+                                <div class="annotation-form" id="annotationForm">
+                                    <div class="annotation-form-header">
+                                        <span class="annotation-form-time">
+                                            <i class="fas fa-clock"></i>
+                                            <span id="annotationTimeLabel">0:00</span>
+                                        </span>
+                                        <span class="annotation-form-phase" id="annotationPhaseLabel">-</span>
+                                    </div>
+                                    <textarea id="annotationText" class="annotation-input" placeholder="Напишите комментарий к этому моменту видео..." rows="3"></textarea>
+                                    <div class="annotation-form-footer">
+                                        <div class="annotation-type-selector">
+                                            <button class="annotation-type-btn active" data-type="comment" title="Комментарий">
+                                                <i class="fas fa-comment"></i>
+                                            </button>
+                                            <button class="annotation-type-btn" data-type="note" title="Заметка">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="annotation-type-btn" data-type="question" title="Вопрос">
+                                                <i class="fas fa-question-circle"></i>
+                                            </button>
+                                            <button class="annotation-type-btn" data-type="important" title="Важное">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                            </button>
+                                        </div>
+                                        <div class="annotation-form-actions">
+                                            <label class="annotation-range-toggle" title="Привязать к диапазону времени">
+                                                <input type="checkbox" id="annotationRangeToggle">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </label>
+                                            <input type="text" id="annotationAuthor" class="annotation-author-input" placeholder="Имя" value="">
+                                            <button class="btn btn-primary btn-sm" id="addAnnotationBtn">
+                                                <i class="fas fa-paper-plane"></i> Добавить
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- Диапазон времени (скрыт по умолчанию) -->
+                                    <div class="annotation-range hidden" id="annotationRange">
+                                        <label>От: <input type="text" id="annotationStartTime" class="time-input" readonly></label>
+                                        <label>До: <input type="text" id="annotationEndTime" class="time-input" placeholder="Текущее"></label>
+                                        <small class="text-muted">Нажмите на таймлайн для установки конца диапазона</small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Фильтры аннотаций -->
+                                <div class="annotation-filters">
+                                    <button class="quick-filter active" data-filter="all">Все</button>
+                                    <button class="quick-filter" data-filter="comment">
+                                        <i class="fas fa-comment"></i> Комментарии
+                                    </button>
+                                    <button class="quick-filter" data-filter="important">
+                                        <i class="fas fa-exclamation-triangle"></i> Важное
+                                    </button>
+                                    <button class="quick-filter" data-filter="question">
+                                        <i class="fas fa-question-circle"></i> Вопросы
+                                    </button>
+                                </div>
+                                
+                                <!-- Количество аннотаций -->
+                                <div class="annotation-count" id="annotationCount">
+                                    <i class="fas fa-comment-dots"></i> <span>0 аннотаций</span>
+                                </div>
+                                
+                                <!-- Список аннотаций -->
+                                <div class="annotation-list" id="annotationList">
+                                    <div class="text-muted text-center p-3">Аннотаций пока нет. Поставьте видео на нужный момент и добавьте комментарий.</div>
                                 </div>
                             </div>
                         </div>

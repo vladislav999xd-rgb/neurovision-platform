@@ -35,6 +35,7 @@ const fs = require('fs');
 
 let operations = [];
 let tags = { instruments: [], anatomy: [], events: [], phases: [] };
+let annotations = {}; // { operationId: [annotation, ...] }
 
 // Загрузка данных при старте
 try {
@@ -51,6 +52,29 @@ try {
     console.log(`✓ Загружены справочники тегов`);
 } catch (e) {
     console.log('⚠ Файл tags.json не найден');
+}
+
+// Загрузка аннотаций
+try {
+    const annotationsData = fs.readFileSync(path.join(__dirname, 'data/annotations.json'), 'utf8');
+    annotations = JSON.parse(annotationsData);
+    const totalAnnotations = Object.values(annotations).reduce((sum, arr) => sum + arr.length, 0);
+    console.log(`✓ Загружено ${totalAnnotations} аннотаций`);
+} catch (e) {
+    console.log('⚠ Файл annotations.json не найден, создаётся пустой');
+    annotations = {};
+}
+
+function saveAnnotations() {
+    try {
+        fs.writeFileSync(
+            path.join(__dirname, 'data/annotations.json'),
+            JSON.stringify(annotations, null, 4),
+            'utf8'
+        );
+    } catch (e) {
+        console.error('Ошибка сохранения аннотаций:', e);
+    }
 }
 
 // ==================== JSON SCHEMAS (для документации) ====================
@@ -587,6 +611,181 @@ app.get('/api/operations/:id/subtitles', (req, res) => {
         data: operation.subtitles || []
     });
 });
+
+// ==================== ANNOTATIONS (Аннотации видео) ====================
+
+/**
+ * GET /api/operations/:id/annotations
+ * Получить все аннотации для операции
+ */
+app.get('/api/operations/:id/annotations', (req, res) => {
+    const operation = operations.find(op => op.id === req.params.id);
+    if (!operation) {
+        return res.status(404).json({ success: false, error: 'Операция не найдена' });
+    }
+    
+    const opAnnotations = annotations[req.params.id] || [];
+    
+    // Сортировка по времени
+    const sorted = [...opAnnotations].sort((a, b) => a.timestamp - b.timestamp);
+    
+    res.json({
+        success: true,
+        data: sorted,
+        total: sorted.length
+    });
+});
+
+/**
+ * POST /api/operations/:id/annotations
+ * Добавить новую аннотацию
+ */
+app.post('/api/operations/:id/annotations', (req, res) => {
+    const operation = operations.find(op => op.id === req.params.id);
+    if (!operation) {
+        return res.status(404).json({ success: false, error: 'Операция не найдена' });
+    }
+    
+    const { timestamp, endTimestamp, text, author, type, color, phase } = req.body;
+    
+    if (timestamp === undefined || !text || !text.trim()) {
+        return res.status(400).json({ 
+            success: false, 
+            error: 'Необходимы поля: timestamp и text' 
+        });
+    }
+    
+    const annotation = {
+        id: uuidv4(),
+        operationId: req.params.id,
+        timestamp: parseFloat(timestamp),
+        endTimestamp: endTimestamp ? parseFloat(endTimestamp) : null,
+        text: text.trim(),
+        author: author || 'Аноним',
+        type: type || 'comment', // comment | note | question | important
+        color: color || '#4285f4',
+        phase: phase || null,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        replies: []
+    };
+    
+    if (!annotations[req.params.id]) {
+        annotations[req.params.id] = [];
+    }
+    annotations[req.params.id].push(annotation);
+    
+    saveAnnotations();
+    console.log(`✓ Новая аннотация для ${req.params.id} в ${Utils_formatTime(timestamp)}`);
+    
+    res.status(201).json({
+        success: true,
+        data: annotation,
+        message: 'Аннотация добавлена'
+    });
+});
+
+/**
+ * PUT /api/operations/:id/annotations/:annotationId
+ * Обновить аннотацию
+ */
+app.put('/api/operations/:id/annotations/:annotationId', (req, res) => {
+    const opAnnotations = annotations[req.params.id];
+    if (!opAnnotations) {
+        return res.status(404).json({ success: false, error: 'Аннотации не найдены' });
+    }
+    
+    const index = opAnnotations.findIndex(a => a.id === req.params.annotationId);
+    if (index === -1) {
+        return res.status(404).json({ success: false, error: 'Аннотация не найдена' });
+    }
+    
+    const { text, type, color, endTimestamp } = req.body;
+    
+    if (text !== undefined) opAnnotations[index].text = text.trim();
+    if (type !== undefined) opAnnotations[index].type = type;
+    if (color !== undefined) opAnnotations[index].color = color;
+    if (endTimestamp !== undefined) opAnnotations[index].endTimestamp = parseFloat(endTimestamp);
+    opAnnotations[index].updatedAt = new Date().toISOString();
+    
+    saveAnnotations();
+    
+    res.json({
+        success: true,
+        data: opAnnotations[index],
+        message: 'Аннотация обновлена'
+    });
+});
+
+/**
+ * DELETE /api/operations/:id/annotations/:annotationId
+ * Удалить аннотацию
+ */
+app.delete('/api/operations/:id/annotations/:annotationId', (req, res) => {
+    const opAnnotations = annotations[req.params.id];
+    if (!opAnnotations) {
+        return res.status(404).json({ success: false, error: 'Аннотации не найдены' });
+    }
+    
+    const index = opAnnotations.findIndex(a => a.id === req.params.annotationId);
+    if (index === -1) {
+        return res.status(404).json({ success: false, error: 'Аннотация не найдена' });
+    }
+    
+    const deleted = opAnnotations.splice(index, 1)[0];
+    saveAnnotations();
+    
+    res.json({
+        success: true,
+        data: deleted,
+        message: 'Аннотация удалена'
+    });
+});
+
+/**
+ * POST /api/operations/:id/annotations/:annotationId/replies
+ * Ответить на аннотацию
+ */
+app.post('/api/operations/:id/annotations/:annotationId/replies', (req, res) => {
+    const opAnnotations = annotations[req.params.id];
+    if (!opAnnotations) {
+        return res.status(404).json({ success: false, error: 'Аннотации не найдены' });
+    }
+    
+    const annotation = opAnnotations.find(a => a.id === req.params.annotationId);
+    if (!annotation) {
+        return res.status(404).json({ success: false, error: 'Аннотация не найдена' });
+    }
+    
+    const { text, author } = req.body;
+    if (!text || !text.trim()) {
+        return res.status(400).json({ success: false, error: 'Необходимо поле text' });
+    }
+    
+    const reply = {
+        id: uuidv4(),
+        text: text.trim(),
+        author: author || 'Аноним',
+        createdAt: new Date().toISOString()
+    };
+    
+    annotation.replies.push(reply);
+    annotation.updatedAt = new Date().toISOString();
+    saveAnnotations();
+    
+    res.status(201).json({
+        success: true,
+        data: reply,
+        message: 'Ответ добавлен'
+    });
+});
+
+// Вспомогательная функция форматирования времени для лога
+function Utils_formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+}
 
 // ==================== STATIC FILES ====================
 

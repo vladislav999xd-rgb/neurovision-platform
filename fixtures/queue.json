@@ -1,0 +1,59 @@
+{
+  "format_version": 1,
+  "project": "queue",
+  "state": {
+    "records": [
+      {
+        "id": 1,
+        "visitor_code": "P101",
+        "cabinet": "101",
+        "status": "waiting",
+        "queue_order": 1
+      },
+      {
+        "id": 2,
+        "visitor_code": "P102",
+        "cabinet": "101",
+        "status": "waiting",
+        "queue_order": 2
+      },
+      {
+        "id": 3,
+        "visitor_code": "P103",
+        "cabinet": "102",
+        "status": "in_service",
+        "queue_order": 3
+      },
+      {
+        "id": 4,
+        "visitor_code": "P104",
+        "cabinet": "103",
+        "status": "done",
+        "queue_order": 4
+      },
+      {
+        "id": 5,
+        "visitor_code": "P105",
+        "cabinet": "101",
+        "status": "canceled",
+        "queue_order": 5
+      },
+      {
+        "id": 6,
+        "visitor_code": "P106",
+        "cabinet": "103",
+        "status": "waiting",
+        "queue_order": 6
+      }
+    ],
+    "history": [],
+    "extra": {
+      "cabinets": [
+        "101",
+        "102",
+        "103"
+      ]
+    }
+  }
+}
+

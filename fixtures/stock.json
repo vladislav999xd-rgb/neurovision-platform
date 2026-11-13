@@ -1,0 +1,64 @@
+{
+  "format_version": 1,
+  "project": "stock",
+  "state": {
+    "records": [
+      {
+        "code": "ST01",
+        "name": "Перчатки учебные",
+        "unit": "пара",
+        "stock": 100
+      },
+      {
+        "code": "ST02",
+        "name": "Маски учебные",
+        "unit": "шт.",
+        "stock": 40
+      },
+      {
+        "code": "ST03",
+        "name": "Пробирки учебные",
+        "unit": "шт.",
+        "stock": 0
+      },
+      {
+        "code": "ST04",
+        "name": "Салфетки учебные",
+        "unit": "уп.",
+        "stock": 20
+      },
+      {
+        "code": "ST05",
+        "name": "Халаты учебные",
+        "unit": "шт.",
+        "stock": 12
+      },
+      {
+        "code": "ST06",
+        "name": "Контейнеры учебные",
+        "unit": "шт.",
+        "stock": 8
+      }
+    ],
+    "history": [],
+    "extra": {
+      "requests": [
+        {
+          "id": 1,
+          "status": "draft",
+          "lines": [
+            {
+              "code": "ST01",
+              "quantity": 3
+            },
+            {
+              "code": "ST03",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
